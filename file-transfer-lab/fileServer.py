@@ -1,15 +1,15 @@
 import sys
-
-sys.path.append("../lib")
 import socket, params, os, re
 from encapFramedSock import EncapFramedSock
 from threading import Thread, Lock
 
+
 switchesVarDefaults = (
-    (('-l', '--listenPort'), 'listenPort', 50020),
-    (('-d', '--debug'), "debug", False),  # boolean (set if present)
-    (('-?', '--usage'), "usage", False),  # boolean (set if present)
-)
+    (('-l', '--listenPort') ,'listenPort', 50001),
+    (('-d', '--debug'), "debug", False), # boolean (set if present)
+    (('-?', '--usage'), "usage", False), # boolean (set if present)
+    )
+
 
 paramMap = params.parseParams(switchesVarDefaults)
 debug, PORT = paramMap["debug"], paramMap["listenPort"]
