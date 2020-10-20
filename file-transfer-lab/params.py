@@ -4,7 +4,7 @@ import sys, re
 progName = "()"
 if len(argv):
     progName = argv[0]
-    del argv[0]
+    del argv[0] 
 
 switchesVarDefaults = ()
 
