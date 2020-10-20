@@ -1,9 +1,11 @@
 import socket
 import sys
 import re
+import os
 #sys.path.append("./lib")       # for params
 import params
 from framedSock import framedSend, framedReceive
+from encapFramedSock import EncapFramedSock
 
 
 switchesVarDefaults = (
@@ -41,20 +43,19 @@ if s is None:
 
 s.connect(addrPort)
 
-print("Sending the file")
+encapSock = EncapFramedSock((s, addrPort))
+# needs to be the file we read from
 
+file = input("File to send: ")
 
-file = input("type file to send : ")    #Gets file to send to server
-textFile = bytes('recieve' +file, 'utf-8')  #file to bytes
-framedSend(s, textFile, debug)  #sends using framed send
-if (file):
-    file_copy = open(file, 'r') #open file
-    file_data = file_copy.read()    #save contents of file
-    if len(file_data.encode('utf-8')) == 0: #if file is empty
-        sys.exit(0)
-    else:
-        framedSend(s, file_data.encode(), debug)
-        print("received:", framedReceive(s, debug))
-else:
-    print("file does not exist.")
-    sys.exit(0)
+if os.path.exists(file):  # if file exists on client end
+    inputFile = open(file, mode="r", encoding="utf-8")
+    contents = inputFile.read()
+
+    if len(contents) == 0:
+        print('will not send empty file exiting')
+        sys.exit(0)  # don't send an empty file
+
+    print("sending file")
+    encapSock.send(file, contents, debug=1)
+encapSock.close()  # close socket after sending file
