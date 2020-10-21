@@ -42,6 +42,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 payload = ""
                 try:
                     fileName, fileContents = self.fsock.receive(debug)
+                    #print(fileName.decode())
+                    #print(fileContents.deoode())
+
                 except Exception as e:
                     print("File transfer failed")
                     print(e)

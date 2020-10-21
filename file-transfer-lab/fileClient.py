@@ -46,16 +46,17 @@ s.connect(addrPort)
 encapSock = EncapFramedSock((s, addrPort))
 # needs to be the file we read from
 
-file = input("File to send: ")
-
+#file = input("File to send: ")
+file = "sampleFile.txt"
 if os.path.exists(file):  # if file exists on client end
     inputFile = open(file, mode="r", encoding="utf-8")
     contents = inputFile.read()
+    #print(contents)
 
     if len(contents) == 0:
         print('will not send empty file exiting')
         sys.exit(0)  # don't send an empty file
 
     print("sending file")
-    encapSock.send(file, contents, debug=1)
+    encapSock.send(file,contents, debug)
 encapSock.close()  # close socket after sending file
