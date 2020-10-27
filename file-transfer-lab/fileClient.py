@@ -47,10 +47,15 @@ encapSock = EncapFramedSock((s, addrPort))
 # needs to be the file we read from
 
 #file = input("File to send: ")
-file = "sampleFile.txt"
+#file = "sampleFile.txt"
+file = 'C:/Users/Dgarc/Desktop/os_ex/ex1.txt'
+
+
 if os.path.exists(file):  # if file exists on client end
     inputFile = open(file, mode="r", encoding="utf-8")
     contents = inputFile.read()
+
+    #print(file)
     #print(contents)
 
     if len(contents) == 0:

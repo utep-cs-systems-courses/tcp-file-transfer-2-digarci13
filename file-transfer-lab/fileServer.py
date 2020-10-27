@@ -43,7 +43,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 try:
                     fileName, fileContents = self.fsock.receive(debug)
                     #print(fileName.decode())
-                    #print(fileContents.deoode())
+                    #print(fileContents.decode())
 
                 except Exception as e:
                     print("File transfer failed")
@@ -51,15 +51,17 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     sys.exit(0)
 
                 conn, addr = s.accept()
+                print("connected")
 
                 if debug:
-                    print("recieved: ", payload)
+                    print("recieved: ", fileContents)
 
                 if payload is None:
                     print("File contents were empty, exiting...")
                     sys.exit(0)
 
                 fileName = fileName.decode()
+                fileName = os.path.basename(fileName)
 
                 try:
                     if not (os.path.isfile("./" + fileName)):
